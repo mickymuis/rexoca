@@ -1,0 +1,42 @@
+./rexoca 100 -bc -r 673 -l axZ -i axaZxZxaZxa -m 2
+./rexoca 80 -bc -r 9 -l ax -i axaxxxxaxxa -m 2
+./rexoca 80 -bc -r 6 -l ax -i axaxxxxaxxa -m 2
+./rexoca 100 -bc -r 689 -l axZ -i ZxZxaxaxaxxxxaZx -m 2
+./rexoca 120 -bc -r 690 -l axZ -i ZxZxaZx -m 2
+./rexoca 80 -bc -l axZ -i ZxZxaZx -m 2 -r 711
+./rexoca 200 -bc -l axZ -i ZxZxaZx -m 2 -r 736
+./rexoca 145 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 921
+./rexoca 145 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9025
+./rexoca 145 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9032
+./rexoca 100 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9034
+./rexoca 100 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9042
+./rexoca 100 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9043
+./rexoca 100 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9046
+./rexoca 145 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9049
+ ./rexoca 100 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9052
+./rexoca 145 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9063
+(also 9066, 9069)
+./rexoca 145 -bc -l axZ -i ZxZxaxZaxxZaZx -m 2 -r 9132
+(also 9213)
+./rexoca 145 -bc -l axZ -i ZxZxaxZaZZZZxxZaZx -m 2 -r 11008
+(highly dependent on input state)
+/rexoca 145 -bc -l axZ -i ZxZxaxaxZaZx -m 2 -r 11010
+(highly dependent on input state)
+./rexoca 100 -bc -l axZ -i ZxZaa -m 2 -r 11011
+./rexoca 100 -bc -l axZ -i ZxZxaxaxZaZx -m 2 -r 11012
+./rexoca 250 -bc -l axZ -i ZxZxaxaxZaZx -m 2 -r 11014
+(amazing)
+./rexoca 200 -bc -l axZ -i ZxZxaxZxZaZx -m 2 -r 11033
+ ./rexoca 140 -bc -l axZ -i ZxZxaxZxZaZx -m 2 -r 11045
+./rexoca 140 -bc -l axZ -i ZxZxaxZxZaZx -m 2 -r 11051
+./rexoca 140 -bc -l ax+ -i ax+++a+ -m 2 -r 11063
+./rexoca 140 -bc -l ax+ -i ax+++a+ -m 2 -r 11064
+(amazing)
+
+./rexoca 200 -bc -l ax+A -i ax+AA++a+A -m 2 -r 21513273
+./rexoca 250 -bc -l ax+A -i ax+AA++a+A -m 2 -r 215133024
+(215133024 to 215133035 are similar)
+
+
+
+

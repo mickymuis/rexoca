@@ -38,7 +38,7 @@ int
 rexoca_readTransitionTable( struct rexoca_t*, FILE* );
 
 void
-rexoca_genTransitionTable( struct rexoca_t*, const char* labels, int rule );
+rexoca_genTransitionTable( struct rexoca_t*, const char* labels, unsigned long rule );
 
 char
 rexoca_advance( struct rexoca_t* );

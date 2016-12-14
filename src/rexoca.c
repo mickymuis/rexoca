@@ -187,12 +187,12 @@ str_permute( char* dst, const char* src, int indices[], int length ) {
 }
 
 void
-rexoca_genTransitionTable( struct rexoca_t* rexoca, const char* labels, int rule ) {
+rexoca_genTransitionTable( struct rexoca_t* rexoca, const char* labels, unsigned long rule ) {
 
         const int base =strlen( labels );               // number of different labels
         const int mode =rexoca->mode;                   // mode, i.e. the neighborhood size
         const int rule_size =pow( base, mode );         // number of transitions in one rule
-        const int max_rules =(int)pow( base, rule_size );
+        const unsigned long max_rules =(int)pow( base, rule_size );
         if( rule >= max_rules ) {
            return;
         }
@@ -213,7 +213,7 @@ rexoca_genTransitionTable( struct rexoca_t* rexoca, const char* labels, int rule
         str_permute( rule_str, labels, rule_base, rule_size );
         printf( "Rule #%d -> '%s'\n", rule, rule_str );
 
-        struct ttable_entry_t* entries =(struct ttable_entry_t*)malloc( TTABLE_GROW * sizeof( struct ttable_entry_t ) );
+        struct ttable_entry_t* entries =(struct ttable_entry_t*)malloc( rule_size * sizeof( struct ttable_entry_t ) );
         
         for( int i = rule_size-1; i >= 0; i-- ) {
             printf( "state_base: %d %d \n", state_base[0], state_base[1] );

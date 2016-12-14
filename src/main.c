@@ -76,7 +76,8 @@ main( int argc, char** argv ) {
     bool has_N =false, has_rule =false, has_labels =false, has_ttable =false, has_initial =false, 
          has_output =false, use_color =false, has_mode =false;
     unsigned int N =0;
-    int set_rule =0, index_labels =0, index_ttable =0, index_initial =0, index_output =0, set_mode =0;
+    int index_labels =0, index_ttable =0, index_initial =0, index_output =0, set_mode =0;
+    unsigned long set_rule =0l;
     struct output_format_t format;
     format.colors =false;
     format.masonry =false;
@@ -165,9 +166,9 @@ main( int argc, char** argv ) {
     }
     printf( "mode: %d\n", mode );
 
-    int max_rules =0;
+    unsigned long max_rules =0;
     if( has_rule ) {
-        max_rules =(int)pow( strlen( argv[index_labels] ), pow( strlen( argv[index_labels] ), mode ) );
+        max_rules =(unsigned long)pow( strlen( argv[index_labels] ), pow( strlen( argv[index_labels] ), mode ) );
         printf( "number of rules: %d\n", max_rules );
         if( set_rule >= max_rules ) {
             fprintf( stderr, "Given impossible rule #%d, only %d combinations possible.\n", set_rule, max_rules );
