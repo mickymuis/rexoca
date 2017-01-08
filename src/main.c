@@ -6,9 +6,17 @@
 #include <stdlib.h>
 #include <math.h>
 
+enum side_t {
+    ALL =0,
+    LEAFS =1,
+    LEFT =2,
+    RIGHT =3,
+};
+
 struct output_format_t {
     bool colors;
     bool masonry;
+    short side;
 }; 
 
 void printLabel( FILE* file, char label, bool colors ) {
@@ -23,26 +31,40 @@ void printLevel( FILE* file, struct rexoca_level_t* l, struct output_format_t fo
         for( int i=0; i < n; i++ )
             fprintf( file, " " );
 
-    for( int i=0; i < l->size; i++ ) {
-        printLabel( file, *(l->state+i), format.colors );
-        if( mode == 2 && format.masonry ) {
-            if( format.colors )
-                printLabel( file, *(l->state+i), format.colors );
-            else
-                fprintf( file, " " );
+    if( format.side == ALL || format.side == LEAFS) {
+        for( int i=0; i < l->size; i++ ) {
+            printLabel( file, *(l->state+i), format.colors );
+            if( mode == 2 && format.masonry ) {
+                if( format.colors )
+                    printLabel( file, *(l->state+i), format.colors );
+                else
+                    fprintf( file, " " );
+            }
         }
+        fprintf( file, "\n" );
     }
-    fprintf( file, "\n" );
+    else if( format.side == LEFT ) {
+        printLabel( file, *(l->state+0), format.colors );
+    }
+    else if( format.side == RIGHT ) {
+        printLabel( file, *(l->state+l->size-1), format.colors );
+    }
 }
 
 void printRexoca( FILE* file, struct rexoca_t* rexoca, struct output_format_t format  ) {
     struct rexoca_level_t* next = rexoca->top;
     int n =0;
 
-    while( next ) {
-        printLevel( file, next, format, rexoca->mode, n++ );
-        next =next->next;
+    if( format.side != LEAFS ) {
+        while( next ) {
+            printLevel( file, next, format, rexoca->mode, n++ );
+            next =next->next;
+        }
+    } else {
+        printLevel( file, next, format, rexoca->mode, 0 );
     }
+    if( format.side > 0 )
+        fprintf( file, "\n" );
 }
 
 void print_help( char* argv0) {
@@ -81,6 +103,8 @@ main( int argc, char** argv ) {
     struct output_format_t format;
     format.colors =false;
     format.masonry =false;
+    bool extremes_only =false;
+    format.side =0;
 
     for( int i = 1; i < argc; i++ ) {
         if( strncmp( argv[i], "-m", 2 ) == 0 || strncmp( argv[i], "--mode", 6 ) == 0 ) {
@@ -118,6 +142,8 @@ main( int argc, char** argv ) {
                     format.masonry =true;
                 else if( argv[i][j] == 'c' )
                     format.colors =true;
+                else if( argv[i][j] == 'E' )
+                    extremes_only =true;
                 else {
                     fprintf( stderr, "Invalid flag '%c'.\n", argv[i][j] );
                     return -1;
@@ -194,8 +220,10 @@ main( int argc, char** argv ) {
         fprintf( stderr, "Error: intial state to small.\n" );
         return -1;
     }
+    if( extremes_only )
+        format.masonry =false;
     rexoca_initialize( rexoca, argv[index_initial] );
-    printRexoca( stdout, rexoca, format );
+    //printRexoca( stdout, rexoca, format );
 
     for( int i =0; i < N; i++ ) {
         if( rexoca_advance( rexoca ) == 0 ) {
@@ -204,7 +232,14 @@ main( int argc, char** argv ) {
         }
     }
 
-    printRexoca( stdout, rexoca, format );
+    if( extremes_only ) {
+        for( int i =LEAFS; i <= RIGHT; i++ ) {
+            format.side =i;
+            printRexoca( stdout, rexoca, format );
+        }
+    }
+    else
+        printRexoca( stdout, rexoca, format );
     
     rexoca_free( rexoca );
 
