@@ -16,6 +16,7 @@ enum side_t {
 struct output_format_t {
     bool colors;
     bool masonry;
+    bool enumerate;
     short side;
 }; 
 
@@ -27,6 +28,9 @@ void printLabel( FILE* file, char label, bool colors ) {
 }
 
 void printLevel( FILE* file, struct rexoca_level_t* l, struct output_format_t format, int mode, int n ) {
+    if( format.enumerate )
+        fprintf( file, "%3d ", n );
+    
     if( format.masonry )
         for( int i=0; i < n; i++ )
             fprintf( file, " " );
@@ -87,6 +91,9 @@ usage: %s N [-t transition_table | -r rule -l labels -m mode] -i initial_sequenc
 \t -c \n \
 \t --colors      \t Color labels according to their ASCII value.\n \
 \t -b \n \
+\t --enumerate   \t Print line numbers before every row of output.\n \
+\t -e \n \
+\t -E            \t Only output the values in the extremes (sides of the triangle).\n \
 \t --masonry     \t Print output in masonry composition.\n \
 \t --help        \t This help.\n \
 ");
@@ -103,6 +110,7 @@ main( int argc, char** argv ) {
     struct output_format_t format;
     format.colors =false;
     format.masonry =false;
+    format.enumerate =false;
     bool extremes_only =false;
     format.side =0;
 
@@ -133,6 +141,8 @@ main( int argc, char** argv ) {
             format.colors =true;
         } else if( strncmp( argv[i], "--masonry", 9 ) == 0 ) {
             format.masonry =true;
+        } else if( strncmp( argv[i], "--enumerate", 11 ) == 0 ) {
+            format.enumerate =true;
         } else if( strncmp( argv[i], "--help", 6 ) == 0 ) {
             print_help ( *argv );
             return 0;
@@ -142,6 +152,8 @@ main( int argc, char** argv ) {
                     format.masonry =true;
                 else if( argv[i][j] == 'c' )
                     format.colors =true;
+                else if( argv[i][j] == 'e' )
+                    format.enumerate =true;
                 else if( argv[i][j] == 'E' )
                     extremes_only =true;
                 else {
